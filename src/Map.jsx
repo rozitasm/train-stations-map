@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 import MapController from './MapController';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import Loading from './Loading';
+import markerIcon from './assets/marker-icon.png';
+import markerShadow from './assets/marker-shadow.png';
 
 
 function Map() {
@@ -16,7 +18,16 @@ function Map() {
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);
   const [mapReady, setMapReady] = useState(false);
+  
 
+
+  const trainIcon = new L.Icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+});
 
   useEffect(() => {
 
@@ -132,7 +143,7 @@ return(
         />
         
         {dataloc.map(station => (
-          <Marker  key={station.id} position={[station.lat, station.lng]}>
+          <Marker  key={station.id} position={[station.lat, station.lng]}  icon={trainIcon}>
             <Popup>
               <b>{station.name}</b><br />
               {station.city}
